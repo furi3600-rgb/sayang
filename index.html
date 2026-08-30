@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Ayush ❤️ Audira | Countdown to Reunion</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:'Segoe UI',sans-serif;
+overflow:hidden;
+height:100vh;
+color:white;
+}
+
+#background{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background-size:cover;
+background-position:center;
+transition:2s ease-in-out;
+filter:brightness(0.35);
+z-index:-2;
+}
+
+.overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:linear-gradient(
+rgba(0,0,0,0.3),
+rgba(0,0,0,0.5)
+);
+z-index:-1;
+}
+
+.container{
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:20px;
+}
+
+h1{
+font-size:3.5rem;
+margin-bottom:10px;
+text-shadow:0 0 20px rgba(255,255,255,0.5);
+}
+
+.subtitle{
+font-size:1.3rem;
+margin-bottom:40px;
+}
+
+.countdown{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:20px;
+}
+
+.box{
+background:rgba(255,255,255,0.15);
+backdrop-filter:blur(12px);
+border-radius:20px;
+padding:20px;
+width:120px;
+box-shadow:0 8px 25px rgba(0,0,0,0.25);
+}
+
+.number{
+font-size:2.4rem;
+font-weight:bold;
+}
+
+.label{
+margin-top:5px;
+font-size:0.9rem;
+letter-spacing:1px;
+}
+
+.message{
+margin-top:45px;
+font-size:1.15rem;
+line-height:1.8;
+max-width:800px;
+padding:0 20px;
+}
+
+.hearts{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+pointer-events:none;
+overflow:hidden;
+}
+
+.heart{
+position:absolute;
+animation:floatUp linear forwards;
+}
+
+@keyframes floatUp{
+0%{
+transform:translateY(100vh);
+opacity:1;
+}
+100%{
+transform:translateY(-100px);
+opacity:0;
+}
+}
+
+.footer{
+margin-top:25px;
+font-size:1rem;
+opacity:0.9;
+}
+
+@media(max-width:768px){
+
+h1{
+font-size:2.2rem;
+}
+
+.subtitle{
+font-size:1rem;
+}
+
+.box{
+width:90px;
+padding:15px;
+}
+
+.number{
+font-size:1.8rem;
+}
+
+.message{
+font-size:1rem;
+}
+}
+</style>
+</head>
+
+<body>
+
+<div id="background"></div>
+<div class="overlay"></div>
+
+<div class="container">
+
+<h1>❤️ Ayush & Audira ❤️</h1>
+
+<div class="subtitle">
+Until Ayush finally holds Audira again ❤️
+</div>
+
+<div class="countdown">
+
+<div class="box">
+<div id="days" class="number">0</div>
+<div class="label">Days</div>
+</div>
+
+<div class="box">
+<div id="hours" class="number">0</div>
+<div class="label">Hours</div>
+</div>
+
+<div class="box">
+<div id="minutes" class="number">0</div>
+<div class="label">Minutes</div>
+</div>
+
+<div class="box">
+<div id="seconds" class="number">0</div>
+<div class="label">Seconds</div>
+</div>
+
+</div>
+
+<div class="message">
+Every sunrise brings us one day closer. ❤️<br>
+Every night reminds us why we wait.<br><br>
+
+No matter the distance,<br>
+our hearts have already found their way home.<br><br>
+
+See you on <strong>30 September 2026</strong>.
+</div>
+
+<div class="footer">
+Made with ❤️ for Ayush & Audira
+</div>
+
+</div>
+
+<div class="hearts" id="hearts"></div>
+
+<script>
+
+// Slideshow Photos
+
+const photos = [
+"photo1.jpeg",
+"photo2.jpeg",
+"photo3.jpeg"
+];
+
+let currentPhoto = 0;
+
+function updateBackground() {
+
+document.getElementById("background").style.backgroundImage =
+`url('${photos[currentPhoto]}')`;
+
+currentPhoto++;
+
+if(currentPhoto >= photos.length){
+currentPhoto = 0;
+}
+
+}
+
+updateBackground();
+setInterval(updateBackground, 8000);
+
+// Countdown
+
+const targetDate =
+new Date("September 30, 2026 00:00:00").getTime();
+
+function updateCountdown(){
+
+const now = new Date().getTime();
+const distance = targetDate - now;
+
+if(distance < 0){
+return;
+}
+
+const days =
+Math.floor(distance / (1000*60*60*24));
+
+const hours =
+Math.floor(
+(distance % (1000*60*60*24))
+/
+(1000*60*60)
+);
+
+const minutes =
+Math.floor(
+(distance % (1000*60*60))
+/
+(1000*60)
+);
+
+const seconds =
+Math.floor(
+(distance % (1000*60))
+/
+1000
+);
+
+document.getElementById("days").innerText = days;
+document.getElementById("hours").innerText = hours;
+document.getElementById("minutes").innerText = minutes;
+document.getElementById("seconds").innerText = seconds;
+
+}
+
+updateCountdown();
+setInterval(updateCountdown,1000);
+
+// Floating Hearts
+
+function createHeart(){
+
+const heart = document.createElement("div");
+
+heart.classList.add("heart");
+
+heart.innerHTML = "❤️";
+
+heart.style.left = Math.random()*100 + "%";
+
+heart.style.fontSize =
+(10 + Math.random()*25) + "px";
+
+heart.style.animationDuration =
+(4 + Math.random()*5) + "s";
+
+document.getElementById("hearts")
+.appendChild(heart);
+
+setTimeout(()=>{
+heart.remove();
+},10000);
+
+}
+
+setInterval(createHeart,300);
+
+</script>
+
+</body>
+</html>
